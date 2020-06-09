@@ -163,16 +163,12 @@ var containsDuplicate = function(nums) {
 };
 ```
 **知识点：set对象：ES6中set的元素的唯一的,如果重复只取其一**
-
-                  **set.size获取set对象长度**
-
-                  **set.add()向set中新增一个对象**
-
-                  **set.delete()删除set中指定的对象**
-
-                  **set.has()查看set中是否包含某个对象**
-
-                  **set.clear()清空set中所有对象**
+                  
+                  set.size获取set对象长度
+                  set.add()向set中新增一个对象
+                  set.delete()删除set中指定的对象
+                  set.has()查看set中是否包含某个对象
+                  set.clear()清空set中所有对象
 ## 55. 跳跃游戏
 ```
 var canJump = function(nums) {
@@ -185,3 +181,56 @@ var canJump = function(nums) {
 };
 ```
 **知识点：贪心算法，每个点都取最大值，判断能到达的最大下标**
+## 45. 跳跃游戏 II
+```
+//使用最少的跳跃次数到达数组的最后一个位置。
+var jump = function(nums) {
+    //遍历每一步能跳到的区间的下一步的最大距离
+    var list_last = 0;
+    var max = 0;
+    var step= 0;
+    if(nums.length==1){
+        return 0
+    }
+    for(var i = 0;i<nums.length;i++){
+        max = Math.max(nums[i]+i,max)//记录该区间中，能跳的最大距离
+        if(list_last == i){//当i到区间末尾，证明这个区间已经选出了最优的，步数加一
+            list_last = max;//更新区间，开始下一个区间的遍历
+            step++;
+        }
+        if(list_last==nums.length-1){//说明选择的这一步可以走到头
+            return step;
+        }
+    }
+    return step;
+};
+```
+**知识点：贪心算法，动态规划，遍历每个区间，不用记录所有值，只用记录区间中，能走得最远的位置，当指针走到该位置时，进入下一区间遍历**
+## 121. 买卖股票的最佳时机
+```
+var maxProfit = function(prices) {
+    var reslut = 0;
+    var min = prices[0];
+    for(var i=1;i<prices.length;i++){
+        if(prices[i]<min){
+            min = prices[i]
+        }else{
+           reslut = Math.max(reslut,prices[i]-min) 
+        }
+
+    }
+    return reslut
+};
+```
+## 122. 买卖股票的最佳时机 II
+```
+var maxProfit = function(prices) {
+    var reslut = 0;
+    for(var i = 1;i<prices.length;i++){
+        reslut+= Math.max(prices[i]-prices[i-1],0) 
+    }
+
+    return reslut
+};
+```
+**贪心算法**
