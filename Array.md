@@ -234,3 +234,22 @@ var maxProfit = function(prices) {
 };
 ```
 **贪心算法**
+## 11. 盛最多水的容器
+```
+var maxArea = function(height) {
+    var reslut = 0;
+    var leftIndex = 0;
+    var rightIndex = height.length-1;
+    while(leftIndex<rightIndex){
+        if(height[leftIndex]<height[rightIndex]){
+            reslut = Math.max(reslut,(rightIndex - leftIndex)*height[leftIndex] )
+            leftIndex++;
+        }else{
+            reslut = Math.max(reslut,(rightIndex-leftIndex)*height[rightIndex] )
+            rightIndex--;
+        }
+    }
+    return reslut
+};
+```
+**知识点：左右两边同时开始，大的不动小的动**
