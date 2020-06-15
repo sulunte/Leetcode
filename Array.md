@@ -1,6 +1,6 @@
 # **Array**
 ## 27. 移除元素
-```
+```javascript
 var removeElement = function(nums, val) {
    for(var i=0;i<nums.length;i++){
        if(nums[i]==val){
@@ -13,7 +13,7 @@ var removeElement = function(nums, val) {
 ```
 **知识点：splice用法**
 ## 26. 删除排序数组中的重复项
-```
+```javascript
 var removeDuplicates = function(nums) {
   var i =0;
   var j= 0 ;
@@ -32,7 +32,7 @@ var removeDuplicates = function(nums) {
 ```
 **知识点：双指针，j一个从头开始指向相同的数，i一个指向不同的数，temp作为中间数进行比较**
 ## 80. 删除排序数组中的重复项 II
-```
+```javascript
 //一个数最多出现两次
 var flag = 0;
 for(var i =0 ;i<nums.length;i++){
@@ -49,7 +49,7 @@ for(var i =0 ;i<nums.length;i++){
 }
 ```
 ## 189. 旋转数组
-```
+```javascript
 //给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
 var rotate = function(nums, k) {
     if(k>nums.length){
@@ -62,7 +62,7 @@ var rotate = function(nums, k) {
 ```
 **知识点：unshift()/shift()/pop()/push()**
 ## 41. 缺失的第一个正数
-```
+```javascript
 //给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。
 var firstMissingPositive = function(nums) {
     nums.sort((a,b)=>a-b);//从小到大排序
@@ -79,7 +79,7 @@ var firstMissingPositive = function(nums) {
 ```
 **知识点：nums.sort((a,b)=>a-b);//从小到大排序**
 ## 299. 猜数字游戏
-```
+```javascript
 //请写出一个根据秘密数字和朋友的猜测数返回提示的函数，用 A 表示公牛，用 B 表示奶牛。
 var getHint = function(secret, guess) {
     var s1 = secret.split('')//将字符串变为数组
@@ -107,7 +107,7 @@ var getHint = function(secret, guess) {
 ```
 **知识点：indexOf()返回找到的从左到右第一个字符的index,没找到返回-1**
 ## 134. 加油站
-```
+```javascript
 var canCompleteCircuit = function(gas, cost) {
     //循环初始加油站
     for(var i =0;i<gas.length;i++){
@@ -133,7 +133,7 @@ var canCompleteCircuit = function(gas, cost) {
 };
 ```
 ## 274. H 指数
-```
+```javascript
 var hIndex = function(citations) {
     citations.sort((a,b)=>b-a);//逆序排序
     for(var i = 0;i<citations.length;i++){
@@ -145,7 +145,7 @@ var hIndex = function(citations) {
 };
 ```
 ## 275. H指数 II
-```
+```javascript
 var hIndex = function(citations) {
     for(var i = 0;i<citations.length;i++){
         if(citations[i]>=citations.length-i){//当前值大于或等于之后的值
@@ -156,7 +156,7 @@ var hIndex = function(citations) {
 };
 ```
 ## 217. 存在重复元素
-```
+```javascript
 //给定一个整数数组，判断是否存在重复元素。
 var containsDuplicate = function(nums) {
     return new Set(nums).size != nums.length;
@@ -170,7 +170,7 @@ var containsDuplicate = function(nums) {
                   set.has()查看set中是否包含某个对象
                   set.clear()清空set中所有对象
 ## 55. 跳跃游戏
-```
+```javascript
 var canJump = function(nums) {
     var max = 0;//每个位置能走到的最大位置下标
     for(var i= 0;i<nums.length;i++){
@@ -182,7 +182,7 @@ var canJump = function(nums) {
 ```
 **知识点：贪心算法，每个点都取最大值，判断能到达的最大下标**
 ## 45. 跳跃游戏 II
-```
+```javascript
 //使用最少的跳跃次数到达数组的最后一个位置。
 var jump = function(nums) {
     //遍历每一步能跳到的区间的下一步的最大距离
@@ -207,7 +207,7 @@ var jump = function(nums) {
 ```
 **知识点：贪心算法，动态规划，遍历每个区间，不用记录所有值，只用记录区间中，能走得最远的位置，当指针走到该位置时，进入下一区间遍历**
 ## 121. 买卖股票的最佳时机
-```
+```javascript
 var maxProfit = function(prices) {
     var reslut = 0;
     var min = prices[0];
@@ -223,7 +223,7 @@ var maxProfit = function(prices) {
 };
 ```
 ## 122. 买卖股票的最佳时机 II
-```
+```javascript
 var maxProfit = function(prices) {
     var reslut = 0;
     for(var i = 1;i<prices.length;i++){
@@ -235,7 +235,7 @@ var maxProfit = function(prices) {
 ```
 **贪心算法**
 ## 11. 盛最多水的容器
-```
+```javascript
 var maxArea = function(height) {
     var reslut = 0;
     var leftIndex = 0;
@@ -254,7 +254,7 @@ var maxArea = function(height) {
 ```
 **知识点：左右两边同时开始，大的不动小的动**
 ## 42. 接雨水
-```
+```javascript
 var trap = function(height) {
     if (height.length < 3) return 0
     let leftMax = 0 ;
@@ -284,7 +284,7 @@ var trap = function(height) {
 ```
 **知识点：动态规划**
 ## 334. 递增的三元子序列
-```
+```javascript
 var increasingTriplet = function(nums) {
     let flag =[1];
     for(let i =1 ;i<nums.length;i++){
@@ -303,7 +303,7 @@ var increasingTriplet = function(nums) {
 ```
 **知识点：动态规划（本题中暴力解法要更简单）**
 ## 128. 最长连续序列
-```
+```javascript
 var longestConsecutive = function(nums) {
     let arr = new Set(nums)//去除重复元素，用.has()判断元素是否存在
     let count = 0;
@@ -326,7 +326,7 @@ var longestConsecutive = function(nums) {
 ```
 **知识点：set.has()的查找算法复杂度为O(1)**
 ## 164. 最大间距
-```
+```javascript
 var maximumGap = function(nums) {
     if(nums.length<2){return 0}
     nums.sort((a,b)=>(a-b))
@@ -341,4 +341,15 @@ var maximumGap = function(nums) {
 };
 ```
 **知识点：先排序，再循环做差，比较大小**
-## 
+## 287. 寻找重复数
+```javascript
+var findDuplicate = function(nums) {
+    let arr = nums.sort((a,b)=>a-b)
+    for(let i=0;i<nums.length-1;i++){
+        if(arr[i]==arr[i+1]){
+            return arr[i]
+        }
+    }
+};
+```
+**知识点：可用对象{}存储undefined位置的数据，如果这个位置已经有人占了则return**
