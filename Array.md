@@ -253,3 +253,92 @@ var maxArea = function(height) {
 };
 ```
 **知识点：左右两边同时开始，大的不动小的动**
+## 42. 接雨水
+```
+var trap = function(height) {
+    if (height.length < 3) return 0
+    let leftMax = 0 ;
+    let rightMax = 0; 
+    let left = [];
+    let right = [];
+    let reslut = 0;
+    for(let i = 0;i<height.length;i++){//从左开始遍历
+
+        if(leftMax<height[i]){
+            leftMax = height[i]
+        }
+        left.push(leftMax)
+    }
+    for(let j = height.length-1;j>=0;j--){//从左开始遍历
+        if(rightMax<height[j]){
+            rightMax = height[j]
+        }
+        right.unshift(rightMax)
+    }
+
+    for(let k = 0;k<height.length;k++){
+        reslut+= Math.min(left[k],right[k])-height[k]
+    }
+    return reslut;
+};
+```
+**知识点：动态规划**
+## 334. 递增的三元子序列
+```
+var increasingTriplet = function(nums) {
+    let flag =[1];
+    for(let i =1 ;i<nums.length;i++){
+        let temp = 1;
+        for(let j = 0;j<i;j++){
+            if(nums[j]<nums[i]&&temp<=flag[j]){//记录最大的j
+                temp = flag[j]+1; 
+            }
+        }
+        if(temp==3){
+            return true
+        }else{flag.push(temp);} 
+    }
+    return false
+};
+```
+**知识点：动态规划（本题中暴力解法要更简单）**
+## 128. 最长连续序列
+```
+var longestConsecutive = function(nums) {
+    let arr = new Set(nums)//去除重复元素，用.has()判断元素是否存在
+    let count = 0;
+    let i =0;
+    let temp=0;
+    while(i<nums.length){
+        if(!arr.has(nums[i]-1)){//无左边元素
+            let j = nums[i]
+            temp=1;
+            while(arr.has(j+1)){
+                temp++;
+                j++
+            }
+            count = Math.max(temp,count)
+        }
+        i++;
+    }
+    return count
+};
+```
+**知识点：set.has()的查找算法复杂度为O(1)**
+## 164. 最大间距
+```
+var maximumGap = function(nums) {
+    if(nums.length<2){return 0}
+    nums.sort((a,b)=>(a-b))
+    if(nums.length==2){return nums[1]-nums[0]}
+    var i=1;
+    var max =0;
+    while(i<nums.length){
+        max = Math.max(max,nums[i]-nums[i-1]);
+        i++;
+    }
+    return max;
+};
+```
+**知识点：先排序，再循环做差，比较大小**
+## 
