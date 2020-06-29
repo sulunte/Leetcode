@@ -82,11 +82,41 @@ Object.prototype.toString.call()可以检测所有的数据类型
   - 主线程每次将执行栈清空后，就去事件队列中检查是否有任务，如果有，就每次取出一个推到执行栈中执行，这个循环往复的过程就被称为“Event Loop 事件循环”。
 
 ### 六、浏览器页面渲染过程
-1.浏览器解析html源码，创建一个DOM树
-2.浏览器解析CSS代码，构建CSSOM树
-3.DOM与CSS生成渲染树 render树
-4.一旦渲染树创建好了，浏览器就可以根据渲染树直接把页面绘制到屏幕上。
+> 1.浏览器解析html源码，创建一个DOM树
+
+> 2.浏览器解析CSS代码，构建CSSOM树
+
+> 3.DOM与CSS生成渲染树 render树
+
+> 4.一旦渲染树创建好了，浏览器就可以根据渲染树直接把页面绘制到屏幕上。
+
 
 ### 七、浏览器缓存
-- 强缓存：利用expires或cache-control这两个http response header实现的，它们都用来表示资源在客户端缓存的有效期
-- 协商缓存：Last-Modified，If-Modified-Since控制协商缓存
+- 强缓存：利用 `expires` 或 `cache-control` 这两个http response header实现的，它们都用来表示资源在客户端缓存的有效期
++ 协商缓存
+  + `Last-Modified`，`If-Modified-Since` 控制协商缓存(类似expires，根据客户端的时间)
+  
+  > 1.浏览器第一次跟服务器请求一个资源时，服务器会在response的header上加一个 `Last-Modified` ，表示这个资源在服务器上最后修改时间
+  
+  > 2.浏览器再次请求这个资源时，在request的header上加一个 `If-Modified-Since` ，即上次的Last-Modified
+  
+  > 3.服务器收到时，比较If-Modified-Since与最后修改时间，如果没有变化返回 `304 Not Modified` ，不会返回资源；如果有变化，则正常返回资源
+  
+  > 4.浏览器收到 `304` 后，会从缓存中加载资源
+  
+  + `ETag`、`If-None-Match` 控制协商缓存
+  
+  > 1.浏览器第一次跟服务器请求一个资源时，服务器会在response的header上加一个 `Etag` ，表示服务器根据当前资源生成的唯一标识
+  
+  > 2.浏览器再次请求这个资源时，在request的header上加一个 `If-None-Match` ，即上次的Etag
+  
+  > 3.服务器收到时，比较If-None-Match与服务器资源生成的Etag，如果没有变化返回 `304 Not Modified` ，不会返回资源；如果有变化，则正常返回资源
+  
+  > 4.浏览器收到 `304` 后，会从缓存中加载资源
+  
+  + 强缓存与协商缓存比较
+  
+  > 强缓存不发请求到服务器，所以有时候资源更新了浏览器还不知道，但是协商缓存会发请求到服务器；但是在分布式系统中尽量使用 `Last-Modified` ，因为每台服务器生成的 `Etag` 不一样。所以协商缓存需要配合强缓存使用。
+
+  
+### 八、Webpack打包
