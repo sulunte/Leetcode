@@ -124,3 +124,5 @@ Object.prototype.toString.call()可以检测所有的数据类型
 - 父组件向子组件传值：通过super()继承父组件的属性，props调用父组件的方法
 - 子组件向父组件传值：通过调用父组件传递到子组件的方法，让父组件自己去修改自己的状态值
 - 兄弟组件传值：通过插件pubsub，在一个组件中PubSub.publish()，在另一个组件中通过PubSub.subscribe()
+
+
