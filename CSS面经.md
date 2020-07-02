@@ -14,3 +14,12 @@ CSS选择器用于选择元素的样式的模式。
 - em：相对于当前对象内文本的fontSize，可以较好地适应设备屏幕的的大小（多用在移动端开发），但是进行元素设置时需要知道父元素文本的fontSize和当前对象内文本的fontSize
 - rem：相对于根元素的fontSize，因此只需要确定一个fontSize就可以了
 
+### 四、居中
++ 水平
+  + 文字：text-align:center
++ 垂直
+  + 文字：line-height:width-fontsize
++ 居中
+  + 盒子：设置width，margin:0px auto
+  + 绝对定位的盒子：left:50%//页面的一半 margin-left:width/2//自身宽度的一半
+  + 背景：background-position:center
