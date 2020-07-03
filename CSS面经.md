@@ -19,6 +19,7 @@ CSS选择器用于选择元素的样式的模式。
   + 文字：text-align:center
 + 垂直
   + 文字：line-height:width-fontsize
+  + 行内块元素：vertical-align:middle
 + 居中
   + 盒子：设置width，margin:0px auto
   + 绝对定位的盒子：left:50%//页面的一半 margin-left:width/2//自身宽度的一半
