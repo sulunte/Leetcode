@@ -9,7 +9,7 @@
 - 数据类型检测：typeof、instanceof
 ```javascript
 typeof对于基本类型来说，除了null都可以正确显示，对于对象来说，除了函数都会显示object
-instanceof是根据原型链来判断数据类型的
+instanceof是根据原型链来判断数据类型的,不能判断prototype
 Object.prototype.toString.call()可以检测所有的数据类型
 ```
 + 浅拷贝：只拷贝一层，更深层次的对象级别只拷贝引用
