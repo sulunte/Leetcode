@@ -196,6 +196,13 @@ GET与POST都是http请求方式。
 捕获错误：`try{}catch(error){//输出error对象属性error.message  error.stack}`
 抛出错误：`throw new Error('message')`
 
+async 函数：返回promise对象
+await 表达式（promise或其他）：等待表达式成功的返回结果，如果想得到失败的结果，要用try catch
+
+宏队列：ajax回调、dom事件回调、定时器回调
+微队列：promise回调、mutation回调
+每次准备取出第一个宏任务之前，要清空微队列
+
 1.抽象的来说，promise是一种解决异步编程的新方法（以前用的是纯回调，这样会产生回调地狱）。具体来说，Promise是一个构造函数，它的实例对象，用来封装一个异步操作，传递异步消息。它有两个特点：一是对象的状态不受外界影响，三种状态： `pedding（进行中）` , `resolved(完成)` ， `rejected（拒绝）` ，只有异步操作的结果能决定当前是哪一种状态。二是对象的状态一旦改变，就不再变化。只能从 `pedding->resloved` 、 `pedding->rejected` 
 
 2.promise的状态改变：resolve,reject,throw new Error('reason')
