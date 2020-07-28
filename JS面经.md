@@ -216,3 +216,13 @@ await 表达式（promise或其他）：等待表达式成功的返回结果，�
 
 ### 十三、XSS攻击
 + 反射型XSS（非持久化）：需要用户主动点击连接
+
+### 如何解决跨域问题
+### CDN 内容分发网络
+### ref
+### script标签为什么放在body后面，defer/async
+### setState()为什么是异步处理
+### let 与 var
+变量提升；块级作用域；let不能重复声明
+### 普通函数与箭头函数
+this指向；new 实例化;arguments
