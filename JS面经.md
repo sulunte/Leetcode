@@ -92,6 +92,31 @@ Object.prototype.toString.call()可以检测所有的数据类型
    
 ### 四、call、apply、bind
 - bind()是返回新函数，当调用这个新函数时，会以创建它时传入bind()方法的第一个参数作为this
+  1. 创建了一个新函数
+  2. 将传入的参数绑定到该函数
+  3. 参数合并
+  4. 返回该函数
+  ```javascript
+  Function.prototype._bind = function(){
+  //首先去缓存参数列表，避免直接更改参数列表
+  let _arguments = arguments;
+  //类数组转换成数组
+   _arguments = Array.prototype.slice.call(_arguments);
+  //拿到当前方法
+  let _this = this;
+  //拿到指定的this值,shift操作会改变原数组
+  let target = Array.prototype.shift.call(_arguments);
+  // 创建一个函数,并执行合并之后的参数
+  let fn = function(){//是不是被当做构造函数使用了
+    let ctx = this instanceof fn ? this : target
+     _this.apply(ctx,_arguments.concat(Array.prototype.slice.call(arguments)));
+  }
+  //添加原函数所有的prototype的值
+  fn.prototype = Object.create(this.prototype);
+  //最后返回这个方法
+  return fn
+  }
+  ```
 - call()、apply()立即调用
 - call()传递参数列表、apply()传递数组
 
@@ -217,11 +242,79 @@ await 表达式（promise或其他）：等待表达式成功的返回结果，�
 ### 十三、XSS攻击
 + 反射型XSS（非持久化）：需要用户主动点击连接
 
-### 如何解决跨域问题
-### CDN 内容分发网络
+### 十四、link和@import
++ link:引入CSS文件。
+```javascript
+<link href="CSSurl路径" rel="stylesheet" type="text/css" />
+```
++ @import：引入CSS文件。
+```html
+<style type="text/css">
+@import url(CSS文件路径地址);
+</style>
+```
+```css
+@import url(CSS文件路径地址);
+```
++ 区别
+
+1. 加载页面时，link标签引入的CSS同时被加载，@import引入的CSS将在页面加载完毕后被加载
+2. 兼容性，link是HTML元素不存在兼容性问题，@import只可在IE5+才可识别
+3. 可以通过JS操作DOM，插入link标签；无法使用@import插入
+4. link的权重大于@import引入的样式
+
+### 十五、如何解决跨域问题
+
++ 浏览器的同源策略：如果两个URL的协议、主机、端口号都相同的话，则这两个URL是同源
+  URL           | 结果          | 原因
+  ------------- | ------------- | -------------
+  http://store.company.com/dir2/other.html | 同源 | 只有路径不同
+  http://store.company.com/dir/inner/another.html | 同源 | 只有路径不同
+  https://store.company.com/secure.html | 失败 | 协议不同
+  http://store.company.com:81/dir/etc.html | 失败 | 端口不同 ( http:// 默认端口是80)
+  http://news.company.com/dir/other.html | 失败 | 主机不同
+  
+  因为浏览器的同源策略所以才有了跨域问题。
+
++ 解决方法
+
+  1. JSONP
+  2. CORS（跨域资源共享）
+  简单请求：就是在头信息之中，增加一个Origin字段。后端会有一个'Access-Control-Allow-Origin'字段检测。
+  非简单请求：非简单请求会发出一次预检测请求，返回码是204，预检测通过才会发真正的请求，才返回200。这里通过前端发请求的时候增加一个额外的header来触发非简单请求。除了Origin还需增加Access-Control-Request-Method和Access-Control-Request-Headers字段，后端会响应Access-Control-Allow-Methods、Access-Control-Allow-Headers、Access-Control-Allow-Credentials（表示是否同意访问）
+  
+### 十六、CDN 内容分发网络
+
+
+
 ### ref
+
 ### script标签为什么放在body后面，defer/async
+
+当浏览器加载一个含有<script>标签的页面时，会发生以下动作：
+1. 获取HTML文件，拉取HTML页面(比如：index.html)
+2. 开始解析html文件
+3. 当解析器遇到一个<script>标签时，准备去获取<script>标签对应的js文件
+4. 当解析器获取js文件时，同时中断了页面上其他html的解析
+5. 一段时间后，js文件解析完毕，页面上其他的html标签继续解析
+
++ 废弃的解决方式：将<script>标签放在html文件的<body>标签之后执行
+  
+但这种加载方式存在的问题就是只有当所有的html元素加载完成后才能开始加载<script>标签的内容，如果这个加载需要花很长时间的话，那在这段时间内，就无法操作页面，要知道两秒之内不能操作页面的话，这个用户体验是非常差的。
+
++ 现在的解决方案
+  + async：标记的 <script> 异步下载并执行。这意味着<script>下载时不阻塞HTML的解析，并且下载结束<script>马上执行。（代码 script2 可能比 script1 先下载完并执行完）
+  ```html
+  <script type="text/javascript" src="path/to/script1.js" async></script>
+  <script type="text/javascript" src="path/to/script2.js" async></script>
+  ```
+  + defer：标记的script顺序执行，这种方式也不会阻断浏览器解析HTML,同时下载结束时<script> 马上执行（代码中 script2 肯定比 script1 后执行完）
+  ```html
+  <script type="text/javascript" src="path/to/script1.js" defer></script>
+  <script type="text/javascript" src="path/to/script2.js" defer></script>
+  ```
 ### setState()为什么是异步处理
+
 ### let 与 var
 变量提升；块级作用域；let不能重复声明
 ### 普通函数与箭头函数
